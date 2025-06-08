@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Delícias Japonesas - Avaliações</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fffaf0;
+    color: #333;
+    margin: 0; padding: 20px;
+  }
+  h1 {
+    color: #b30000;
+    text-align: center;
+  }
+  form {
+    max-width: 500px;
+    margin: 0 auto 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+  }
+  textarea {
+    resize: vertical;
+  }
+  button {
+    background-color: #b30000;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    width: 100%;
+  }
+  button:hover {
+    background-color: #800000;
+  }
+  .reviews {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .review {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+  }
+  .review .nome {
+    font-weight: bold;
+    color: #b30000;
+    margin-bottom: 5px;
+  }
+  .review .stars {
+    color: #ffb400;
+    font-size: 1.2em;
+    margin-bottom: 8px;
+  }
+  .review .text {
+    font-size: 1em;
+    white-space: pre-wrap;
+  }
+  .no-reviews {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+
+<h1>Avaliações - Delícias Japonesas</h1>
+
+<form id="reviewForm">
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome" placeholder="Seu nome" required />
+
+  <label for="nota">Nota:</label>
+  <select id="nota" required>
+    <option value="" disabled selected>Escolha a nota</option>
+    <option value="5">★★★★★ 5 - Excelente</option>
+    <option value="4">★★★★ 4 - Muito bom</option>
+    <option value="3">★★★ 3 - Bom</option>
+    <option value="2">★★ 2 - Regular</option>
+    <option value="1">★ 1 - Ruim</option>
+  </select>
+
+  <label for="comentario">Comentário:</label>
+  <textarea id="comentario" rows="4" placeholder="Escreva sua opinião aqui..." required></textarea>
+
+  <button type="submit">Enviar Avaliação</button>
+</form>
+
+<div class="reviews" id="reviewsContainer">
+  <p class="no-reviews">Nenhuma avaliação ainda.</p>
+</div>
+
+<script>
+  const form = document.getElementById('reviewForm');
+  const reviewsContainer = document.getElementById('reviewsContainer');
+
+  function carregarReviews() {
+    const reviews = JSON.parse(localStorage.getItem('avaliacoes')) || [];
+    reviewsContainer.innerHTML = '';
+
+    if (reviews.length === 0) {
+      reviewsContainer.innerHTML = '<p class="no-reviews">Nenhuma avaliação ainda.</p>';
+      return;
+    }
+
+    reviews.forEach(({ nome, nota, comentario }) => {
+      const reviewDiv = document.createElement('div');
+      reviewDiv.classList.add('review');
+
+      const nomeDiv = document.createElement('div');
+      nomeDiv.classList.add('nome');
+      nomeDiv.textContent = nome;
+
+      const starsSpan = document.createElement('div');
+      starsSpan.classList.add('stars');
+      starsSpan.textContent = '★'.repeat(nota) + '☆'.repeat(5 - nota);
+
+      const textP = document.createElement('p');
+      textP.classList.add('text');
+      textP.textContent = comentario;
+
+      reviewDiv.appendChild(nomeDiv);
+      reviewDiv.appendChild(starsSpan);
+      reviewDiv.appendChild(textP);
+
+      reviewsContainer.appendChild(reviewDiv);
+    });
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const nome = document.getElementById('nome').value.trim();
+    const nota = parseInt(document.getElementById('nota').value);
+    const comentario = document.getElementById('comentario').value.trim();
+
+    if (!nome || !nota || !comentario) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    const novasAvaliacoes = JSON.parse(localStorage.getItem('avaliacoes')) || [];
+    novasAvaliacoes.push({ nome, nota, comentario });
+
+    localStorage.setItem('avaliacoes', JSON.stringify(novasAvaliacoes));
+
+    form.reset();
+    carregarReviews();
+  });
+
+  carregarReviews();
+</script>
+
+</body>
+</html>
