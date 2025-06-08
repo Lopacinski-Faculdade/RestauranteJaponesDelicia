@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardápio Japonês - Delicias Japonesas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #b30000;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .item {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      transition: transform 0.3s;
+      position: relative;
+    }
+    .item:hover {
+      transform: scale(1.05);
+    }
+    .item img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .item h3 {
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+    .item p {
+      margin: 5px 0;
+    }
+    .item button {
+      background-color: #b30000;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+    .item button:hover {
+      background-color: #800000;
+    }
+    #carrinho {
+      padding: 20px;
+      background-color: white;
+      max-width: 600px;
+      margin: 0 auto;
+      margin-top: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #carrinho h2 {
+      margin-top: 0;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #b30000;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Delicias Japonesas</h1>
+    <p>Escolha uma DELICIA que nós fazemos!!!</p>
+  </header>
+
+  <section class="menu">
+    <div class="item">
+      <img src="https://super.abril.com.br/wp-content/uploads/2016/12/gettyimages-473870090.jpg?quality=70&w=1024&crop=1" alt="NÂO GOSTAMOS DE SUSHI!!!">
+      <h3>Sem sushi</h3>
+      <p>Nâo trabalhamos com sushi mas se voce quiser doar dinheiro.</p>
+      <p><strong>R$ 50,00</strong></p>
+      <button onclick="adicionarAoCarrinho('Doação generosa', 50.00)">Adicionar ao Pedido</button>
+    </div>
+    <div class="item">
+      <img src="https://arakakisensei.com/wp-content/uploads/2020/09/gyoza-1024x768.jpg" alt="GYOZA">
+      <h3>GYOZA DE PORCO!!!</h3>
+      <p>Bolinho grelhado na frigideira ou cozido no vapor com recheio de porco.</p>
+      <p><strong>R$ 12,00</strong></p>
+      <button onclick="adicionarAoCarrinho('Gyoza de porco né', 12.00)">Adicionar ao Pedido</button>
+    </div>
+    <div class="item">
+      <img src="https://arakakisensei.com/wp-content/uploads/2020/09/Okonomiyaki-1024x768.jpg" alt="Okonomiyaki">
+      <h3>Okonomiyaki</h3>
+      <p>Panqueca frita com varias coisas. É supresa!</p>
+      <p><strong>R$ 18,00</strong></p>
+      <button onclick="adicionarAoCarrinho('Okonomiyaki', 18.00)">Adicionar ao Pedido</button>
+    </div>
+    <div class="item">
+      <img src="https://msabores.com/wp-content/uploads/2024/08/temakisalmao.webp" alt="Temaki de Atum">
+      <h3>Temaki de Atum</h3>
+      <p>Cone de alga com arroz, atum, corante roza e cebolinha.</p>
+      <p><strong>R$ 20,00</strong></p>
+      <button onclick="adicionarAoCarrinho('Temaki de atum', 20.00)">Adicionar ao Pedido</button>
+    </div>
+    <div class="item">
+      <img src="https://hirotafood.com.br/wp-content/uploads/2019/03/MM.jpg" alt="Missoshiru">
+      <h3>Missoshiru</h3>
+      <p>Sopa tradicional de missô com tofu e cebolinha.</p>
+      <p><strong>R$ 10,00</strong></p>
+      <button onclick="adicionarAoCarrinho('Missoshiru', 10.00)">Adicionar ao Pedido</button>
+    </div>
+    <div class="item">
+      <img src="https://djapa.com.br/wp-content/uploads/2020/02/sunomono.jpg" alt="Sunomono">
+      <h3>Sunomono</h3>
+      <p>Pepino preparado com um molho agridoce.</p>
+      <p><strong>R$ 10,00</strong></p>
+      <button onclick="adicionarAoCarrinho('Sunomono', 5.00)">Adicionar ao Pedido</button>
+    </div>
+    <div class="item">
+      <img src="https://djapa.com.br/wp-content/uploads/2021/04/shimeji.jpg" alt="Shimeji">
+      <h3>Shimeji</h3>
+      <p>Cogumelo bastante nutritivo e queridinho.</p>
+      <p><strong>R$ 10,00</strong></p>
+      <button onclick="adicionarAoCarrinho('Shimeji', 5.00)">Adicionar ao Pedido</button>
+    </div>
+    <div class="item">
+      <img src="https://djapa.com.br/wp-content/uploads/2020/03/harumaki-de-legumes.jpg" alt="Harumaki Legumes">
+      <h3>harumaki-de-legumes</h3>
+      <p>Rolinho primavera japones recheado de legumes.</p>
+      <p><strong>R$ 10,00</strong></p>
+      <button onclick="adicionarAoCarrinho('harumaki de legumes', 5.00)">Adicionar ao Pedido</button>
+    </div>
+    <div class="item">
+    <img src="https://i.panelinha.com.br/i1/bk-7993-batata-frita-tradicional.webp" alt="Batata">
+      <h3>Batata Frita</h3>
+      <p>Batatas fritas bem fritinhas e crocantes quem não gosta né.</p>
+      <p><strong>R$ 20,00</strong></p>
+      <button onclick="adicionarAoCarrinho('Batata Frita', 20.00)">Adicionar ao Pedido</button>
+    </div>
+  </section>
+
+  <section id="carrinho">
+    <h2>Seu Pedido</h2>
+    <ul id="lista-carrinho"></ul>
+    <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Sushi House - Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    let carrinho = [];
+
+    function adicionarAoCarrinho(nome, preco) {
+      carrinho.push({ nome, preco });
+      atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      const lista = document.getElementById('lista-carrinho');
+      const totalSpan = document.getElementById('total');
+      lista.innerHTML = '';
+      let total = 0;
+
+      carrinho.forEach((item, index) => {
+        total += item.preco;
+        const li = document.createElement('li');
+        li.textContent = `${item.nome} - R$ ${item.preco.toFixed(2)}`;
+        lista.appendChild(li);
+      });
+
+      totalSpan.textContent = total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
